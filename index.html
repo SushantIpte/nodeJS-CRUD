@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/activity.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Node JS & MongoDB</title>
+</head>
+
+<body>
+	<div class="container">
+		<form class="form-horizontal" id="form" action="/api/save" method="post" encType="multipart/form-data">
+			<div class="form-group col-md-12">
+				<label for="first">First Name : </label>
+				<input class="form-control" type="text" name="First" id="first" required>
+				<span id="span_first" class="text-danger" style="display:none;">Please Enter First Name</span>
+			</div>
+			<div class="form-group col-md-12">
+				<label for="last">Last Name : </label>
+				<input class="form-control" type="text" name="Last" id="last" required>
+				<span id="span_last" class="text-danger" style="display:none;">Please Enter Last Name</span>
+			</div>
+			<div class="form-group col-md-12">
+				<label for="email">Email : </label>
+				<input class="form-control" type="text" name="Email" id="email" required>
+				<span id="span_email" class="text-danger" style="display:none;">Please Enter a Valid Email Id</span>
+			</div>
+			<div class="form-group col-md-12">
+				<label for="contact">Contact : </label>
+				<input class="form-control" type="text" name="Contact" id="contact" required>
+				<span id="span_contact" class="text-danger" style="display:none;">Please Enter a Valid Contact Number</span>
+			</div>
+			<div class="form-group">
+				<div class="col-md-6">
+					<label for="contact">Profile Picture : </label>
+					<input class="form-control" type="file" name="profile" id="profile" required>
+				</div>
+				<div class="col-md-6" id="imageTag">
+
+				</div>
+			</div>
+			<!-- <input class="btn btn-default" type="button" onclick="submit()" name="Save"> -->
+			<button type="button" class="btn btn-default" name="Save" onclick="submidsfsdt()">Submit</button>
+		</form>
+	</div>
+	<div style="margin-top: 20px;" class="container table-responsive">
+		<table id="table" class="table ">
+			<tr>
+				<th>Profile</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Contact</th>
+				<th>Action</th>
+			</tr>
+		</table>
+	</div>
+	<script>
+		$("#profile").change(function () {
+			readURL(this);
+		});
+	</script>
+</body>
+
+
+</html>
