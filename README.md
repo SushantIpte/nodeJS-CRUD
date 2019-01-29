@@ -1,2 +1,2 @@
 # nodeJS-CRUD
-CRUD implementation using Node.JS and MongoDB
+CRUD implementation using Node.JS and MySql
