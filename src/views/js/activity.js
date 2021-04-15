@@ -6,7 +6,7 @@ $(document).ready(function (argument) {
 function sav() {
     var str;
     $.ajax({
-        url: 'http://localhost:4000/api/get',
+        url: '/api/get',
         type: 'get',
         success: function (data) {
             tab = data;
@@ -30,8 +30,16 @@ function sav() {
                             </tr>`;
             });
             $('#table').html(str + '</tbody>');
+        },
+        error: function (err) {
+            alert('Error Fetching data');
+            console.log(err);
         }
     });
+}
+
+function subm(params) {
+
 }
 
 function edit(index, id) {
@@ -39,14 +47,14 @@ function edit(index, id) {
     $('#last').val(tab[index].Last);
     $('#email').val(tab[index].Email);
     $('#contact').val(tab[index].Contact);
-    $('#imageTag').html('');    
+    $('#imageTag').html('');
     $('#imageTag').append('<img class="img img-thumbnail col-md-10" src="' + tab[index].Profile + '">')
     $('#form').append('<input class="form-control" type="hidden" name="_id" value=' + tab[index].Id + '>')
     $('#form').removeAttr('action');
     $('#form').attr('action', '/api/edit');
 }
 
-function submidsfsdt() {
+function submitForm() {
     var error = 0;
     if ($('#first').val() == '') {
         $('#first').css({ border: '4px solid red' })
@@ -85,11 +93,27 @@ function submidsfsdt() {
     }
 
     if (error == 0) {
-        $('#form').submit();
+        // $('#form').submit();
+        callSaveApi();
     } else {
         console.log(error)
     }
     // $('#form').submit();
+}
+
+function callSaveApi(params) {
+    $.post({
+        url: '/api/save',
+        type: 'post',
+        data: $("form-api").serializeArray(),
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (err) {
+            alert('Error Fetching data');
+            console.log(err);
+        }
+    });
 }
 
 function readURL(input) {

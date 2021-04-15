@@ -12,12 +12,12 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="js/activity.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<title>Node JS & MongoDB</title>
+	<title>Node JS & SQL</title>
 </head>
 
 <body>
 	<div class="container">
-		<form class="form-horizontal" id="form" action="/api/save" method="post" encType="multipart/form-data">
+		<form class="form-horizontal" id="form-api" method="post" encType="multipart/form-data">
 			<div class="form-group col-md-12">
 				<label for="first">First Name : </label>
 				<input class="form-control" type="text" name="First" id="first" required>
@@ -48,7 +48,7 @@
 				</div>
 			</div>
 			<!-- <input class="btn btn-default" type="button" onclick="submit()" name="Save"> -->
-			<button type="button" class="btn btn-default" name="Save" onclick="submidsfsdt()">Submit</button>
+			<button type="button" class="btn btn-default" name="Save" onclick="submitForm()">Submit</button>
 		</form>
 	</div>
 	<div style="margin-top: 20px;" class="container table-responsive">
