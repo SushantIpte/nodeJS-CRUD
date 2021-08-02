@@ -1,7 +1,7 @@
 var model = require('../models/apiModel')
 
-module.exports = (app) => {
-
+module.exports = (app, con) => {
+  model.getCon(con);
   app.post("/api/save", (req, res) => {
     var dt = new Date();
     var _obj = {

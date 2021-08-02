@@ -7,24 +7,24 @@ function ExecQuery(query, res) {
   // console.log(query,'query')
 
   var promise = new Promise((resolve, reject) => {
-    // con.query(query, function (err, result, fields) {
-    //   if (err)
-    //     reject(err);
-    //   else
-    //     resolve(result);
-    // });
-    connection = amqp.connect('amqp://localhost', function (err, conn) {
-      if (err) reject(err)
-      else {
-        conn.createChannel(function (err, ch) {
-          if (err) reject(err)
-          else {
-            ch.assertQueue(q)
-            resolve(ch.sendToQueue(q, Buffer.from(query)))
-          }
-        })
-      }
+    con.query(query, function (err, result, fields) {
+      if (err)
+        reject(err);
+      else
+        resolve(result);
     });
+    // connection = amqp.connect('amqp://localhost', function (err, conn) {
+    //   if (err) reject(err)
+    //   else {
+    //     conn.createChannel(function (err, ch) {
+    //       if (err) reject(err)
+    //       else {
+    //         ch.assertQueue(q)
+    //         resolve(ch.sendToQueue(q, Buffer.from(query)))
+    //       }
+    //     })
+    //   }
+    // });
   });
   return promise;
 }

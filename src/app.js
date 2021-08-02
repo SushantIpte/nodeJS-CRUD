@@ -23,7 +23,7 @@ function startScript() {
 	con.connect((err) => {
 		if (err) throw err;
 		console.log("Connected!");
-		routes(app);
+		routes(app, con);
 	});
 }
 
