@@ -42,10 +42,10 @@ module.exports = {
   update: (_id, _obj) => {
     let query = 'UPDATE `clientData` SET '
     Object.keys(_obj).forEach((_val) => {
-      query += _val + ' = ' + _obj[_val] + ',';
+      query += _val + ' = "' + _obj[_val] + '",';
     })
     query = query.substr(0, query.length - 1);
-    query += 'WHERE Id = ' + _id;
+    query += ' WHERE Id = ' + _id;
     return ExecQuery(query);
   },
 

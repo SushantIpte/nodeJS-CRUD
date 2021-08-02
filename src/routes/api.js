@@ -67,7 +67,7 @@ module.exports = (app, con) => {
   app.delete("/api/delete", (req, res) => {
     model.getData(req.body.prodid)
       .then((result) => {
-        if (result && result[0] && result[0].profile) {
+        if (result && result[0] && result[0].profile !== "NULL") {
           fs.remove(result[0].profile, function (err, res) {
             if (err) {
               console.info(err);
