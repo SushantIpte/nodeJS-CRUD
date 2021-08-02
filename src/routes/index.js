@@ -11,9 +11,9 @@ _fArray.forEach((_fName, _i) => {
   files[_i] = require('./' + _fName);
 });
 
-module.exports = (app, con) => {
+module.exports = (app) => {
   files.forEach((_file) => {
-    _file(app, con);
+    _file(app);
   });
   app.listen(config.port, () => {
     console.log("Server listening on port " + config.port);

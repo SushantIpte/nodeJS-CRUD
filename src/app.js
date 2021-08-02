@@ -5,23 +5,28 @@ var fileUpload = require('express-fileupload');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 
-var app = express();
+function startScript() {
+	var app = express();
 
-app.use('/images', express.static(__dirname + '/views/images'));
-app.use('/js', express.static(__dirname + '/views/js'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(fileUpload({
-	saveFileName: true,
-	preserveExtension: true,
-	abortOnLimit: true,
-}));
+	app.use('/images', express.static(__dirname + '/views/images'));
+	app.use('/js', express.static(__dirname + '/views/js'));
+	app.use(express.json());
+	app.use(express.urlencoded({ extended: true }));
+	app.use(fileUpload({
+		saveFileName: true,
+		preserveExtension: true,
+		abortOnLimit: true,
+	}));
 
-var con = mysql.createConnection(config.dbConfig)
+	var con = mysql.createConnection(config.dbConfig)
 
-con.connect((err) => {
-	if (err) throw err;
-	console.log("Connected!");
-});
+	con.connect((err) => {
+		if (err) throw err;
+		console.log("Connected!");
+		routes(app);
+	});
+}
 
-routes(app, con);
+module.exports = {
+	startScript
+}

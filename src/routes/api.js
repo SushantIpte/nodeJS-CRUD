@@ -1,7 +1,6 @@
 var model = require('../models/apiModel')
 
-module.exports = (app, con) => {
-  model.getCon(con);
+module.exports = (app) => {
 
   app.post("/api/save", (req, res) => {
     var dt = new Date();
@@ -47,35 +46,46 @@ module.exports = (app, con) => {
       console.log('saved')
       img = true;
     }
-    if (img) {
-      var query = 'UPDATE `clientData` SET `First` = "' + req.body.First + '", `Last` = "' + req.body.Last + '", `Email` = "' + req.body.Email + '", `Contact` = "' + req.body.Contact + '", `Profile` = "' + str + '" WHERE Id=' + id;
-    } else {
-      var query = 'UPDATE `clientData` SET `First` = "' + req.body.First + '", `Last` = "' + req.body.Last + '", `Email` = "' + req.body.Email + '", `Contact` = "' + req.body.Contact + '" WHERE Id=' + id;
+    let data = {
+      First: req.body.First,
+      Last: req.body.Last,
+      Email: req.body.Email,
+      Contact: req.body.Contact
     }
-    ExecQuery(query, res)
+    if (img) {
+      data.Profile = str
+    }
+    model.update(id, data)
+      .then((_result) => {
+        res.status(200).send(_result);
+      })
+      .catch((err) => {
+        res.status(400).send(err);
+      });
   });
 
   app.delete("/api/delete", (req, res) => {
-    var query = 'SELECT * FROM `clientData` WHERE Id = ' + req.body.prodid;
-    con.query(query, function (err, result, fields) {
-      if (result && result[0] && result[0].profile) {
-        fs.remove(result[0].profile, function (err, res) {
-          if (err) {
-            console.info(err);
-          }
-        })
-      }
-    });
-
-    var query = 'DELETE FROM `clientData` WHERE Id = ' + req.body.prodid;
-    console.log(query)
-    con.query(query, function (err, result, fields) {
-      if (err)
-        res.send(err);
-      else
-        res.json({ message: 'Successfully deleted' });
-    });
-    console.log("Deleted");
+    model.getData(req.body.prodid)
+      .then((result) => {
+        if (result && result[0] && result[0].profile) {
+          fs.remove(result[0].profile, function (err, res) {
+            if (err) {
+              console.info(err);
+            }
+          })
+        }
+        model.delete(req.body.prodid)
+          .then((result) => {
+            res.status(200).send(_result);
+            console.log("Deleted");
+          })
+          .catch((err) => {
+            res.status(400).send(err);
+          });
+      })
+      .catch((err) => {
+        res.status(400).send(err);
+      });
   });
 
   app.get("/api/get", (req, res) => {
@@ -84,6 +94,7 @@ module.exports = (app, con) => {
         res.status(200).send(_result);
       })
       .catch((err) => {
+        console.log(err, 'err')
         res.status(400).send(err);
       })
 

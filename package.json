@@ -4,7 +4,8 @@
   "description": "Node demo to store data",
   "main": "app.js",
   "scripts": {
-    "build": "node src/app.js",
+    "build": "node src/index.js",
+    "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -29,6 +30,9 @@
     "url-parse": ">=1.5.0"
   },
   "devDependencies": {
-    "get-routes": "^2.1.0"
+    "amqplib": "^0.8.0",
+    "cluster": "^0.7.7",
+    "get-routes": "^2.1.0",
+    "nodemon": "^2.0.12"
   }
 }
